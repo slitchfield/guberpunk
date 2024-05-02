@@ -12,5 +12,8 @@ target_wasm
 # https://github.com/lycheeverse/lychee
 .lycheecache
 
-# Ignore test roms
-test_roms
+# Ignore chummer data
+data
+
+# Ignore cargo.lock
+Cargo.lock

@@ -1,4 +1,6 @@
 #![warn(clippy::all, rust_2018_idioms)]
 
-mod app;
-pub use app::TemplateApp;
+pub mod guber_state;
+pub mod app;
+pub mod data;
+pub use app::GuberpunkApp;
