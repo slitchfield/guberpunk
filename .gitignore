@@ -13,7 +13,7 @@ target_wasm
 .lycheecache
 
 # Ignore chummer data
-data
+chummer_data
 
 # Ignore cargo.lock
 Cargo.lock
