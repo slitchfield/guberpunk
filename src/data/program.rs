@@ -63,7 +63,7 @@ pub struct ChummerProgram {
 use std::fs;
 use std::io;
 impl Program {
-    pub fn init_program_list(base_path: String) -> Result<Vec<Program>, String> {
+    pub fn init_program_list(base_path: &String) -> Result<Vec<Program>, String> {
         let filepath = format!("{}/programs.xml", base_path);
         let raw_file = fs::File::open(filepath).expect("Could not open the right file");
         let file_reader = io::BufReader::new(raw_file);
