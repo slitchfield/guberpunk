@@ -23,7 +23,6 @@ eframe = { version = "0.27.0", default-features = false, features = [
     "persistence",   # Enable restoring app state when restarting the app.
 ] }
 log = "0.4"
-tinyfiledialogs = "3.9.1"
 pretty-hex = "0.4.1"
 xml-rs = "0.8.20"
 serde-xml-rs = "0.6.0"
@@ -34,6 +33,7 @@ serde = { version = "1", features = ["derive"] }
 # native:
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 env_logger = "0.10"
+tinyfiledialogs = "3.9.1"
 
 # web:
 [target.'cfg(target_arch = "wasm32")'.dependencies]

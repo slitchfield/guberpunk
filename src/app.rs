@@ -1,23 +1,16 @@
+#[cfg(not(target_arch = "wasm32"))]
 use std::fs::File;
+#[cfg(not(target_arch = "wasm32"))]
 use std::io::prelude::*;
 
 use crate::guber_state::GuberState;
 
 /// We derive Deserialize/Serialize so we can persist app state on shutdown.
-#[derive(serde::Deserialize, serde::Serialize)]
+#[derive(Default, serde::Deserialize, serde::Serialize)]
 #[serde(default)] // if we add new fields, give them default values when deserializing old state
 pub struct GuberpunkApp {
     #[serde(skip)]
     device: GuberState,
-}
-
-impl Default for GuberpunkApp {
-    fn default() -> Self {
-        Self {
-            // Example stuff:
-            device: GuberState::default(),
-        }
-    }
 }
 
 impl GuberpunkApp {
@@ -72,22 +65,26 @@ impl eframe::App for GuberpunkApp {
             ui.horizontal(|ui| {
                 ui.label("Controls");
             });
-            
+
+            #[cfg(not(target_arch = "wasm32"))]
             if ui.button("Open File").clicked() {
                 let _open_file: String;
-                let _file_result: Result<(), String> = match tinyfiledialogs::open_file_dialog("Open", "", None) {
-                    None => {
-                        _open_file = "null".to_string();
-                        Err("No file provided".to_string())
-                    }
-                    Some(file) => {
-                        _open_file = file.clone();
-                        let mut handle = File::open(file).expect("Could not open file");
-                        let mut rom_buf: Vec<u8> = vec![];
-                        handle.read_to_end(&mut rom_buf).expect("Could not read from file");
-                        Ok(())
-                    }
-                };
+                let _file_result: Result<(), String> =
+                    match tinyfiledialogs::open_file_dialog("Open", "", None) {
+                        None => {
+                            _open_file = "null".to_string();
+                            Err("No file provided".to_string())
+                        }
+                        Some(file) => {
+                            _open_file = file.clone();
+                            let mut handle = File::open(file).expect("Could not open file");
+                            let mut rom_buf: Vec<u8> = vec![];
+                            handle
+                                .read_to_end(&mut rom_buf)
+                                .expect("Could not read from file");
+                            Ok(())
+                        }
+                    };
             }
 
             ui.separator();
@@ -98,4 +95,3 @@ impl eframe::App for GuberpunkApp {
         });
     }
 }
-

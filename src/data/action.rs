@@ -1,4 +1,4 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct Action {
@@ -11,7 +11,7 @@ pub struct Action {
     specname: Option<String>,
     boosts: Option<Vec<Boost>>,
     source: String,
-    page: String, 
+    page: String,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -32,11 +32,11 @@ struct Boost {
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 struct Actions {
     #[serde(rename = "action")]
-    pub actions: Vec<Action>
+    pub actions: Vec<Action>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
-#[serde(rename="chummer")]
+#[serde(rename = "chummer")]
 pub struct ChummerAction {
     version: String,
     actions: Actions,
@@ -61,16 +61,19 @@ mod tests {
 
     #[test]
     fn action_test() {
-        let action: Action = serde_xml_rs::from_str(r##"<action>
-      <id>c649963a-b88f-473f-96d0-2f38cd054d86</id>
-      <name>Melee Defense</name>
-      <type>No</type>
-	  <test>
-		<dice>{REA} + {INT} + {Improvement Value: Dodge}</dice>
-	  </test>
-      <source>SR5</source>
-      <page>168</page>
-    </action>"##).unwrap();
+        let action: Action = serde_xml_rs::from_str(
+            r##"<action>
+                <id>c649963a-b88f-473f-96d0-2f38cd054d86</id>
+                <name>Melee Defense</name>
+                <type>No</type>
+                <test>
+                    <dice>{REA} + {INT} + {Improvement Value: Dodge}</dice>
+                </test>
+                <source>SR5</source>
+                <page>168</page>
+            </action>"##,
+        )
+        .unwrap();
         println!("{:#?}", action);
     }
 
@@ -92,13 +95,15 @@ mod tests {
             <page>168</page>
           </action>
         </actions>
-        </chummer>""##).unwrap();
+        </chummer>""##)
+            .unwrap();
         println!("{:#?}", document);
     }
 
     #[test]
     fn file_read_test() {
-        let action_list = Action::init_action_list(&String::from("./chummer_data/")).expect("Could not parse action list from actions.xml");
+        let action_list = Action::init_action_list(&String::from("./chummer_data/"))
+            .expect("Could not parse action list from actions.xml");
         println!("Imported {} actions", action_list.len());
     }
 }

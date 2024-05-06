@@ -1,3 +1,1 @@
-
-pub struct Gear {
-}
+pub struct Gear {}

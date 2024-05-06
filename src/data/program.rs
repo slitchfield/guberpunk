@@ -25,7 +25,7 @@ pub struct Program {
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 struct Tag {
     #[serde(rename = "$value")]
-    value: String
+    value: String,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -38,23 +38,23 @@ enum Category {
     CommonPrograms,
     #[serde(rename = "Hacking Programs")]
     HackingPrograms,
-    Software
+    Software,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 struct Categories {
     #[serde(rename = "category")]
-    categories: Vec<Category>
+    categories: Vec<Category>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
-pub struct Programs{
+pub struct Programs {
     #[serde(rename = "program")]
-    pub programs: Vec<Program>
+    pub programs: Vec<Program>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
-#[serde(rename="chummer")]
+#[serde(rename = "chummer")]
 pub struct ChummerProgram {
     categories: Categories,
     pub programs: Programs,
