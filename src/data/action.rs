@@ -101,6 +101,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg_attr(feature = "ci_test_env", ignore)]
     fn file_read_test() {
         let action_list = Action::init_action_list(&String::from("./chummer_data/"))
             .expect("Could not parse action list from actions.xml");
